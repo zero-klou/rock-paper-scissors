@@ -10,6 +10,7 @@ function playRound(e = null) {
 
 	if (humanChoice == computerChoice) {
 		showResultsUI("Draw!");
+		updateScoresUI();
 		return;
 	}
 
