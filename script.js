@@ -79,7 +79,7 @@ function playGame() {
 			return;
 		}
 
-		let isHumanWin = false;
+		let isHumanWin = null;
 
 		switch (humanChoice) {
 			case "rock":
@@ -93,6 +93,9 @@ function playGame() {
 			case "scissors":
 				isHumanWin = computerChoice == "rock" ? false : true;
 				break;
+
+			default:
+				isHumanWin = false;
 		}
 
 		if (isHumanWin) {
