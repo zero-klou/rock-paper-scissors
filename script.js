@@ -1,3 +1,72 @@
+let humanScore = 0;
+let computerScore = 0;
+
+const buttons = document.querySelector(".buttons");
+buttons.addEventListener("click", playRound);
+
+function playRound(e = null) {
+	const humanChoice = e.target.getAttribute("data-value");
+	const computerChoice = getComputerChoice();
+
+	if (humanChoice == computerChoice) {
+		showResultsUI("Draw!");
+		return;
+	}
+
+	let isHumanWin = null;
+
+	switch (humanChoice) {
+		case "rock":
+			isHumanWin = computerChoice == "paper" ? false : true;
+			break;
+
+		case "paper":
+			isHumanWin = computerChoice == "scissors" ? false : true;
+			break;
+
+		case "scissors":
+			isHumanWin = computerChoice == "rock" ? false : true;
+			break;
+
+		default:
+			isHumanWin = false;
+	}
+
+	if (isHumanWin) {
+		humanScore++;
+		showResultsUI(`You win! ${humanChoice} beats ${computerChoice}`);
+	} else {
+		computerScore++;
+		showResultsUI(`You lose! ${computerChoice} beats ${humanChoice}`);
+	}
+
+	updateScoresUI();
+	if (humanScore + computerScore == 5) endGame();
+}
+
+function endGame() {
+	const resultGameText =
+		humanScore > computerScore
+			? "You beat this electronic ass! Congrats!!!"
+			: "Computer is the best! Good luck next time!";
+	humanScore = 0;
+	computerScore = 0;
+	showResultsUI(resultGameText);
+}
+
+function updateScoresUI() {
+	const humanScoreEl = document.querySelector("#human-score");
+	const computerScoreEl = document.querySelector("#computer-score");
+
+	humanScoreEl.textContent = humanScore;
+	computerScoreEl.textContent = computerScore;
+}
+
+function showResultsUI(resultText) {
+	const resultEl = document.querySelector(".result");
+	resultEl.textContent = resultText;
+}
+
 /*
 	Формирует рандомное число от 0 до 9 (включительно),
 	В зависимости от числа возвращает одну из строк:
@@ -50,64 +119,3 @@ function checkComputerChoiceSample() {
 
 	return values;
 }
-
-function getHumanChoice() {
-	value = prompt("Введите 'Rock', 'Paper' или 'Scissors'", "Scissors");
-	return value ? value.toLowerCase() : "";
-}
-
-/* 
-	Сперва функция проверяет, раунд на ничью.
-	Затем мы сравниваем выбор компьютера и человека и определяем, победил ли человек.
-	На основе этого считаем очки и выводим сообщение.
-*/
-
-function playGame() {
-	let humanScore = 0;
-	let computerScore = 0;
-
-	for (let i = 0; i < 5; i++) {
-		const humanSelection = getHumanChoice();
-		const computerSelection = getComputerChoice();
-
-		playRound(humanSelection, computerSelection);
-	}
-
-	function playRound(humanChoice, computerChoice) {
-		if (humanChoice == computerChoice) {
-			console.log("draw");
-			return;
-		}
-
-		let isHumanWin = null;
-
-		switch (humanChoice) {
-			case "rock":
-				isHumanWin = computerChoice == "paper" ? false : true;
-				break;
-
-			case "paper":
-				isHumanWin = computerChoice == "scissors" ? false : true;
-				break;
-
-			case "scissors":
-				isHumanWin = computerChoice == "rock" ? false : true;
-				break;
-
-			default:
-				isHumanWin = false;
-		}
-
-		if (isHumanWin) {
-			humanScore++;
-			console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-		} else {
-			computerScore++;
-			console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-		}
-	}
-
-	return `Вы: ${humanScore} | Компьютер: ${computerScore}`;
-}
-
-console.log(playGame());

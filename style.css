@@ -1,0 +1,55 @@
+html {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	align-items: center;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.value-button {
+	flex: 1 1 0;
+	min-width: 150px;
+	cursor: pointer;
+}
+
+.table {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.scores {
+	display: flex;
+	margin-bottom: 20px;
+	align-self: stretch;
+}
+
+.result {
+	text-align: center;
+	height: 100px;
+	align-content: center;
+	font-size: 32px;
+	max-width: 400px;
+	word-break: normal;
+}
+
+.score {
+	flex: 1 0 50%;
+	text-align: center;
+	font-size: 96px;
+}
